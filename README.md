@@ -2,8 +2,8 @@
 
 
 
-# Fennie's Python Scripting for SQL Database
-## A Python script for an ETL pipeline to external data. The project will extract data from a url, make any necessary transformations, load the transformed data into a SQLite database, and perform CRUD queries to ananlyze and retrieve preliminary insights on the stored data.
+# Fennie's Complex SQL Query for MySQL Database
+## Build off of the Python scripting ETL-CRUD pipeline, complex SQL queries will additionally be performed, consisting of joins, aggregation, and sorting, for a MySQL database.
 
 
 
