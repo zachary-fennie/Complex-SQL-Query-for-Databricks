@@ -2,8 +2,8 @@
 
 
 
-# Fennie's Complex SQL Query for MySQL Database
-## Build off of the Python scripting for the ETL-CRUD pipeline, additional complex SQL queries will be performed, consisting of joins, aggregation, and sorting, for a MySQL database.
+# Fennie's Complex SQL Query for Databricks
+## Build off of the Python scripting for the ETL-CRUD pipeline, additional complex SQL queries will be performed, consisting of joins, aggregation, and sorting, for Databricks.
 
 
 

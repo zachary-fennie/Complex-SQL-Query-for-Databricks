@@ -27,8 +27,9 @@ def read():
     print("Top 5 rows of the table:")
     cursor.execute("SELECT * FROM icuDB LIMIT 5;")
     # Fetch the results
-    rows = cursor.fetchall()  # Fetch results here
-    print(rows)  # Print the fetched rows to see the output
+    rows = cursor.fetchall()
+    # Print the fetched rows to see the output
+    print(rows)
     conn.close()
     return "Read Success"
 
