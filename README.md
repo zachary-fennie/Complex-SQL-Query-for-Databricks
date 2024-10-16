@@ -7,7 +7,7 @@
 
 
 
-![diagram-export-10-6-2024-3_36_53-PM](https://github.com/user-attachments/assets/e476f6c1-42a3-41d0-b667-1885c59c4cd1)
+![diagram-export-10-15-2024-10_40_57-PM](https://github.com/user-attachments/assets/c176c501-b37e-4bc4-88b2-f047fdc31f62)
 
 ## Structure
 The `library` directory contains `extract.py` to extract raw data from an online url source, `transform_load.py` to transform and load the original raw data from a `.csv` to a `.db` SQLite database, and `crud_query.py` to perform CRUD and query basic SQL operations.
