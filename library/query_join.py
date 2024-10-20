@@ -3,7 +3,6 @@ QUERY
 Query the database & join a table
 """
 
-import csv
 import os
 from databricks import sql
 from dotenv import load_dotenv
