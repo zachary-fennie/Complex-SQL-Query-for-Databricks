@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 # load the csv file and insert into Databricks
 def load(dataset="covid-geography/mmsa-icu-beds.csv"):
     """Transforms and Loads data into Databricks"""
+    print("Uploading data...")
     payload = csv.reader(open(dataset, newline=""), delimiter=",")
     next(payload)
     load_dotenv()
@@ -27,32 +28,36 @@ def load(dataset="covid-geography/mmsa-icu-beds.csv"):
                 icu_beds INT, hospitals INT, total_at_risk FLOAT);"""
             )
 
-            # NA values caused typecasting errors which require the following code block
-            string_sql = "INSERT INTO icu VALUES"
-            values_list = []
+            cursor.execute("SELECT * FROM icu")
+            result = cursor.fetchall()
+            if not result:
+                # NA values caused typecasting errors which require the following code block
+                string_sql = "INSERT INTO icu VALUES"
+                values_list = []
 
-            for i in payload:
-                # prepare a list for the cleaned values
-                clean_values = []
-                for value in i:
-                    if value == "NA":
-                        # append with NULL
-                        clean_values.append("NULL")
-                    elif isinstance(value, str):
-                        # enclose strings in single quotes
-                        clean_values.append(f"'{value}'")
-                    else:
-                        # keep all other values unchanged
-                        clean_values.append(value)
-                # create formatted string for the tuple
-                values_list.append(f"({', '.join(map(str, clean_values))})")
-            # join the tuples and finalize the SQL statement
-            string_sql += "\n" + ",\n".join(values_list) + ";"
+                for i in payload:
+                    # prepare a list for the cleaned values
+                    clean_values = []
+                    for value in i:
+                        if value == "NA":
+                            # append with NULL
+                            clean_values.append("NULL")
+                        elif isinstance(value, str):
+                            # enclose strings in single quotes
+                            clean_values.append(f"'{value}'")
+                        else:
+                            # keep all other values unchanged
+                            clean_values.append(value)
+                    # create formatted string for the tuple
+                    values_list.append(f"({', '.join(map(str, clean_values))})")
+                # join the tuples and finalize the SQL statement
+                string_sql += "\n" + ",\n".join(values_list) + ";"
 
-            cursor.execute(string_sql)
+                cursor.execute(string_sql)
 
             cursor.close()
             connection.close()
+    print("Upload complete")
     return "Upload Complete"
 
 

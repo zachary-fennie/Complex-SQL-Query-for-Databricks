@@ -3,14 +3,14 @@
 
 
 # Fennie's Complex SQL Query for Databricks
-## Building off of the Python scripting for the ETL-CRUD pipeline, additional complex SQL queries will be performed, consisting of joins, aggregation, and sorting, for Databricks.
+## Building off of the Python scripting for the ETL-CRUD pipeline, the Complex SQL Query project will extract data from an external source, connect and load the data into a Databricks enivronment, and join the results of a math operation to the table in Databricks with a SQL script.
 
 
 
 ![diagram-export-10-15-2024-10_40_57-PM](https://github.com/user-attachments/assets/c176c501-b37e-4bc4-88b2-f047fdc31f62)
 
 ## Structure
-The `library` directory contains `extract.py` to extract raw data from an online url source, `transform_load.py` to transform and load the original raw data from a `.csv` to a `.db` SQLite database, and `crud_query.py` to perform CRUD and query basic SQL operations.
+The `library` directory contains `extract.py` to extract raw data from an online url source, `transform_load.py` to transform and load the original raw data from a `.csv` to a Databricks database, and `complex_query.py` to perform the math and join operations through a SQL script.
 
 ## Successful SQL Operations
 <img width="1336" alt="Screenshot 2024-10-07 at 5 26 19 PM" src="https://github.com/user-attachments/assets/199f3776-66dd-4011-a1e5-570e89d8ded5">
@@ -21,7 +21,7 @@ The `library` directory contains `extract.py` to extract raw data from an online
 * `library.py`
     - `extract.py`
     - `transform_load.py`
-    - `crud_query.py`
+    - `complex_query.py`
 * `test_main.py`
 * `requirements.txt`
 * CI/CD pipeline

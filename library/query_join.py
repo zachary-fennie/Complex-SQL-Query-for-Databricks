@@ -32,6 +32,7 @@ JOIN
 
 def complex_query():
     """Complex query - join in Databricks"""
+    print("Querying data...")
     load_dotenv()
     with sql.connect(
         server_hostname=os.getenv("SERVER_HOSTNAME"),
@@ -41,9 +42,9 @@ def complex_query():
         with connection.cursor() as cursor:
             cursor.execute(SQL_QUERY)
 
-            result = cursor.fetchall()
-            for row in result:
-                print(row)
+            # result = cursor.fetchall()
+            # for row in result:
+            #     print(row)
 
             cursor.close()
             connection.close()
