@@ -1,28 +1,60 @@
 """
 TRANSFORM AND LOAD
-Transforms and Loads data into the local SQLite3 database
+Transforms and Loads data into Databricks
 """
 
-import sqlite3
 import csv
 import os
+from databricks import sql
+from dotenv import load_dotenv
 
 
-# load the csv file and insert into a new sqlite3 database
+# load the csv file and insert into Databricks
 def load(dataset="covid-geography/mmsa-icu-beds.csv"):
-    """Transforms and Loads data into the local SQLite3 database"""
-    print("Transforming and loading data...")
-    # prints the full working directory and path
-    print(os.getcwd())
-    payload = csv.reader(open(dataset, encoding="utf-8", newline=""), delimiter=",")
-    conn = sqlite3.connect("icu.db")
-    c = conn.cursor()
-    c.execute("DROP TABLE IF EXISTS icuDB")
-    c.execute(
-        "CREATE TABLE icuDB (MMSA, total_percent_at_risk, high_risk_per_ICU_bed, high_risk_per_hospital, icu_beds, hospitals, total_at_risk)"
-    )
-    # insert data into database
-    c.executemany("INSERT INTO icuDB VALUES (?, ?, ?, ?, ?, ?, ?)", payload)
-    conn.commit()
-    conn.close()
-    return "icuDB.db"
+    """Transforms and Loads data into Databricks"""
+    payload = csv.reader(open(dataset, newline=""), delimiter=",")
+    next(payload)
+    load_dotenv()
+    with sql.connect(
+        server_hostname=os.getenv("SERVER_HOSTNAME"),
+        http_path=os.getenv("HTTP_PATH"),
+        access_token=os.getenv("DATABRICKS_KEY"),
+    ) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """CREATE TABLE IF NOT EXISTS icu (MMSA STRING, total_percent_at_risk STRING, 
+                high_risk_per_ICU_bed FLOAT, high_risk_per_hospital FLOAT, 
+                icu_beds INT, hospitals INT, total_at_risk FLOAT);"""
+            )
+
+            # NA values caused typecasting errors which require the following code block
+            string_sql = "INSERT INTO icu VALUES"
+            values_list = []
+
+            for i in payload:
+                # prepare a list for the cleaned values
+                clean_values = []
+                for value in i:
+                    if value == "NA":
+                        # append with NULL
+                        clean_values.append("NULL")
+                    elif isinstance(value, str):
+                        # enclose strings in single quotes
+                        clean_values.append(f"'{value}'")
+                    else:
+                        # keep all other values unchanged
+                        clean_values.append(value)
+                # create formatted string for the tuple
+                values_list.append(f"({', '.join(map(str, clean_values))})")
+            # join the tuples and finalize the SQL statement
+            string_sql += "\n" + ",\n".join(values_list) + ";"
+
+            cursor.execute(string_sql)
+
+            cursor.close()
+            connection.close()
+    return "Upload Complete"
+
+
+if __name__ == "__main__":
+    load()
