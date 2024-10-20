@@ -12,16 +12,6 @@ def test_func():
     assert test_dict["transform"] == "Upload Complete"
     assert test_dict["complex_query"] == "Join Successful"
 
-    # # special test for the list that full_crudquery() returns
-    # result = complex_query()  # Call the function to execute it
-    # expected = [
-    #     "Create Success",
-    #     "Read Success",
-    #     "Query Success",
-    #     "Update Success",
-    #     "Delete Success",
-    # ]
-
     # # Extract the actual list of messages from the returned dictionary
     # actual_list = result["full_crudquery"]
 

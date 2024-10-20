@@ -47,6 +47,7 @@ def complex_query():
 
             cursor.close()
             connection.close()
+    print("Complex Query Successful")
     return "Join Successful"
 
 
