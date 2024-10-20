@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 def load(dataset="covid-geography/mmsa-icu-beds.csv"):
     """Transforms and Loads data into Databricks"""
     print("Uploading data...")
-    payload = csv.reader(open(dataset, newline=""), delimiter=",")
+    payload = csv.reader(open(dataset, newline="", encoding="utf-8"), delimiter=",")
     next(payload)
     load_dotenv()
     with sql.connect(
