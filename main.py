@@ -7,16 +7,6 @@ from library.transform_load import load
 from library.query_join import complex_query
 
 
-def main_results():
-    """Results function for testing main"""
-    results = {
-        "extract": extract(),
-        "transform": load(),
-        "complex_query": complex_query(),
-    }
-    return results
-
-
 def main():
     """Main function for the Complex SQL operations"""
     # extract
@@ -27,9 +17,6 @@ def main():
 
     # query
     complex_query()
-
-    # call results function for testing
-    main_results()
 
 
 if __name__ == "__main__":
