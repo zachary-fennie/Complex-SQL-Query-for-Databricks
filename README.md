@@ -13,11 +13,10 @@
 The `library` directory contains `extract.py` to extract raw data from an online url source, `transform_load.py` to transform and load the original raw data from a `.csv` to a Databricks database, and `complex_query.py` to perform the math and join operations through a SQL script.
 
 ## Successful SQL Operations
-<img width="1336" alt="Screenshot 2024-10-07 at 5 26 19 PM" src="https://github.com/user-attachments/assets/199f3776-66dd-4011-a1e5-570e89d8ded5">
+<img width="1071" alt="Screenshot 2024-10-20 at 8 30 17 PM" src="https://github.com/user-attachments/assets/165c22af-3ddb-4b20-b66e-7adcd54a13a3">
 
 ### Core Files of the Repo:
 * Jupyter notebook
-* `icu.db`
 * `library.py`
     - `extract.py`
     - `transform_load.py`
